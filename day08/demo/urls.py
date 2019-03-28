@@ -19,5 +19,5 @@ from demo import views
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
-    url(r'^/', ),
+    # url(r'^/', ),
 ]
