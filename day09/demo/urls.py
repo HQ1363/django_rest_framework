@@ -1,4 +1,4 @@
-"""zhoukao02 URL Configuration
+"""day09 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -14,14 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from rest_framework.routers import DefaultRouter
-from demo import views
-
-# 7.	使用modelviewset和router完成路由绑定（10分）
-router = DefaultRouter()
-router.register(r'company', viewset=views.CompanyShow, basename='company')
-router.register(r'employee', viewset=views.EmployeeShow, basename='employee')
+from django.contrib import admin
 
 urlpatterns = [
-    url('', include(router.urls))
+    url(r'^admin/', admin.site.urls),
+    url(r'^demo/', include('demo.urls', namespace='demo')),
 ]

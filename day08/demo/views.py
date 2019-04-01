@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from django_filters.rest_framework.backends import DjangoFilterBackend
-from django_filters.rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework.filters import OrderingFilter
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
@@ -18,7 +18,7 @@ class Bearer(TokenAuthentication):
 class Booklist(ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializers
-    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filter_backends = (DjangoFilterBackend, OrderingFilter)
     filter_fields = ['name', 'price']
     search_fields = ('=name', 'price', 'author')
     ordering_fields = ('price', 'name', 'author')
