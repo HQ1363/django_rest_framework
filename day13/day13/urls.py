@@ -1,4 +1,4 @@
-"""zhoukao03 URL Configuration
+"""day13 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -14,15 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from rest_framework.routers import DefaultRouter
-from .views import *
-
-router = DefaultRouter()
-router.register(r'sms', SmsViewSet, basename='sms')
-router.register(r'register', Register, basename='register')
-router.register(r'login', Login, basename='login')
-router.register(r'userlist', UserShow, basename='userlist')
+from django.contrib import admin
 
 urlpatterns = [
-    url('', include(router.urls, namespace='demo')),
+    url(r'^admin/', admin.site.urls),
+    url(r'^demo/', include('demo.urls', namespace='demo')),
 ]

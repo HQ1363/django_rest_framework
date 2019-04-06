@@ -1,4 +1,4 @@
-"""zhoukao03 URL Configuration
+"""day11 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -18,10 +18,7 @@ from rest_framework.routers import DefaultRouter
 from .views import *
 
 router = DefaultRouter()
-router.register(r'sms', SmsViewSet, basename='sms')
-router.register(r'register', Register, basename='register')
-router.register(r'login', Login, basename='login')
-router.register(r'userlist', UserShow, basename='userlist')
+router.register(r'stu', StuShow, basename='stu')
 
 urlpatterns = [
     url('', include(router.urls, namespace='demo')),
