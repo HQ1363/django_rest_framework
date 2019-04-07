@@ -71,7 +71,7 @@ class LoginSerializers(serializers.ModelSerializer):
         fields = ('username', 'password', 'key')
 
     def validate(self, attrs):
-        user = User.objects.filter(Q(username=attrs['username']) | Q(tel=attrs['tel'])).first()
+        user = User.objects.filter(Q(username=attrs['username']) | Q(tel=attrs['username'])).first()
         if user:
             if check_password(attrs['password'], user.password):
                 key = uuid.uuid4()
