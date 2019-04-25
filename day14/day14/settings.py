@@ -137,5 +137,6 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'anon': '5/m',
         'user': '100/m'
-    }
+    },
+    'EXCEPTION_HANDLER': 'demo.errors.my_handle_error',
 }
