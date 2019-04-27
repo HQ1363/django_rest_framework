@@ -38,10 +38,16 @@ INSTALLED_APPS = [
     'demo',
     'rest_framework',
     'django_filters',
+    # 跨域
     'corsheaders',
+    # 使用drf自带token，实现登陆
+    'rest_framework.authtoken'
 ]
 
+# from corsheaders.middleware import CorsMiddleware
+
 MIDDLEWARE = [
+    # 跨域中间件
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -53,6 +59,7 @@ MIDDLEWARE = [
 
 ]
 
+# 跨域白名单
 CORS_ORIGIN_WHITELIST = '127.0.0.1:9000'
 
 ROOT_URLCONF = 'day14.urls'
@@ -128,15 +135,21 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'demo.User'
 
 REST_FRAMEWORK = {
+    # 全局分页
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 分页每页数据量
     'PAGE_SIZE': 3,
+    # 全局认证
     'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.BasicAuthentication'],
+    # 全局权限
     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+    # 全局限流
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.AnonRateThrottle',
                                  'rest_framework.throttling.UserRateThrottle'],
     'DEFAULT_THROTTLE_RATES': {
         'anon': '5/m',
-        'user': '100/m'
+        'user': '10/m'
     },
+    # 自定义异常类
     'EXCEPTION_HANDLER': 'demo.errors.my_handle_error',
 }

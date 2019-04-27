@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+# 自动生成文档
 from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^demo/', include('demo.urls', namespace='demo')),
-    url(r'^docs/', include_docs_urls()),
+    # 自动生成接口
+    url(r'^docs/', include_docs_urls(title='demo')),
 ]

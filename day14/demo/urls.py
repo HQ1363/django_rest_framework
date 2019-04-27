@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken.views import ObtainAuthToken
+
 from .views import *
 
 router = DefaultRouter()
@@ -25,4 +27,6 @@ router.register(r'guojishow', GuojiShow, basename='guojishow')
 
 urlpatterns = [
     url('', include(router.urls, namespace='demo')),
+    # 使用drf自带token，实现登陆
+    url('login1/', ObtainAuthToken.as_view(), name='login1'),
 ]

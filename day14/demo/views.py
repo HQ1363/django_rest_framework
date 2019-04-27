@@ -11,6 +11,7 @@ from rest_framework.throttling import UserRateThrottle
 
 from .serializers import CodeSerializers, RegisterSerializers, LoginSerializers, GuojiSerialzers
 from .models import Code, Token, Guoji
+from .errors import MyError
 
 
 class CodeShow(ModelViewSet):
@@ -70,3 +71,7 @@ class GuojiShow(ModelViewSet):
     authentication_classes = (BasicAuthentication,)
     permission_classes = (IsAuthenticated,)
     throttle_classes = (UserRateThrottle,)
+
+    # 测试自定义异常，手动抛出异常
+    def retrieve(self, request, *args, **kwargs):
+        raise MyError()
