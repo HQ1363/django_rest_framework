@@ -1,11 +1,20 @@
 from yunpian import YunPian
 import uuid
 
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAdminUser, AllowAny
+from django_filters.rest_framework.backends import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
 
-from .serializers import CodeSerializers, SignUpSerializers, SignInSerializers
-from .models import Code, User, Token
+from .serializers import CodeSerializers, SignUpSerializers, SignInSerializers, GoodsSerializers
+from .models import Code, User, Token, Goods
+from .myauthentication import MyToken
+from .mypermissions import MyPermissions, UserPermissions
+from .myfilter import Myfilter
+from .myerror import MyError
 
 
 class CodeShow(ModelViewSet):
@@ -55,3 +64,24 @@ class SignIn(ModelViewSet):
         if ser.is_valid():
             return Response(ser.validated_data['key'])
         return Response(ser.errors)
+
+
+class GoodsShow(ModelViewSet):
+    queryset = Goods.objects.all()
+    serializer_class = GoodsSerializers
+    authentication_classes = (MyToken,)
+    permission_classes = (MyPermissions, UserPermissions, IsAdminUser,)
+
+    # 动态设置权限: 某类用户才可以添加、删除商品
+    def get_permissions(self):
+        if self.action == 'create':
+            return [IsAdminUser()]
+        if self.action == 'delete':
+            return [IsAdminUser()]
+        return [AllowAny()]
+
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filter_class = Myfilter
+
+    def list(self, request, *args, **kwargs):
+        raise MyError()

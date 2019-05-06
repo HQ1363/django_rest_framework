@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'demo.apps.DemoConfig',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'rest_framework.authtoken',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +127,7 @@ USE_TZ = False
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'demo.User'
+
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'demo.myerror.my_exception_handler'
+}

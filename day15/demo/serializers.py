@@ -9,7 +9,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from django.contrib.auth.hashers import make_password, check_password
 
-from .models import Code, User, Token
+from .models import Code, User, Token, Goods
 
 
 class CodeSerializers(serializers.ModelSerializer):
@@ -67,3 +67,9 @@ class SignInSerializers(serializers.ModelSerializer):
                 attrs['key'] = key
                 return attrs
         raise ValidationError('用户名或密码错误')
+
+
+class GoodsSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Goods
+        fields = '__all__'

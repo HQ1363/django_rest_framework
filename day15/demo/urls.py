@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken.views import ObtainAuthToken
 
 from .views import *
 
@@ -22,7 +23,9 @@ router = DefaultRouter()
 router.register(r'codeshow', CodeShow, basename='codeshow')
 router.register(r'signup', SignUp, basename='signup')
 router.register(r'signin', SignIn, basename='signin')
+router.register(r'goods', GoodsShow, basename='goods')
 
 urlpatterns = [
+    url(r'^login/', ObtainAuthToken.as_view()),
     url('', include(router.urls, namespace='demo')),
 ]

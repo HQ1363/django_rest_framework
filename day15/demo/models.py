@@ -26,3 +26,11 @@ class Token(models.Model):
 
     class Meta:
         db_table = 'token'
+
+
+class Goods(models.Model):
+    title = models.CharField(max_length=20)
+    price = models.FloatField(default=0.0)
+
+    class Meta:
+        db_table = 'goods'
